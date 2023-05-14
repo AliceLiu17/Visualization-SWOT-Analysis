@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Simple Graph using nvd3.js</title>
+    <link rel="stylesheet" href="style.css" type="text/css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.6/nv.d3.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.6/nv.d3.min.js"></script>
+</head>
+<body>
+    <div id="graph1">
+
+        <h1 style = "text-align: center;">Positive Negative SWOT Analysis : Using NVD3.js</h1>
+        <svg id="posneg-svg" style="height:700px; width: 2100px"></svg>
+        <script>
+            nv.addGraph(function() {
+                var data = [
+                    {
+                        key: "Strength Sum",
+                        values: [
+                        {x: "EST. IN CURRENCY (S)", y: 950000, "color": "#000000"},
+                        {x: "MIN PROB (S)", y: 330000, "color": "#000000"},
+                        {x: "MAX PROB (S)", y: 692500, "color": "#000000"},
+                        {x: "AVERAGE PROB (S)", y: 511250, "color": "#000000"},
+                        {x: "REALISTIC PROB (S)", y: 527500, "color": "#000000"},
+                        {x: "3 POINT BASED\nPROB (S)", y: 516666.67, "color": "#000000"},
+                        {x: "PERT POINT\nBASED PROB (S)", y: 522083.33, "color": "#000000"}
+                        ]
+                    },
+                    {
+                        key: "Opportunity Sum",
+                        color: "red",
+                        values: [
+                        {x: "EST. IN CURRENCY (O)", y: 945000, "color": "#000000"},
+                        {x: "MIN PROB (O)", y: 558000, "color": "#000000"},
+                        {x: "MAX PROB (O)", y: 927500, "color": "#000000"},
+                        {x: "AVERAGE PROB (O)", y: 742750, "color": "#000000"},
+                        {x: "REALISTIC PROB (O)", y: 822750, "color": "#000000"},
+                        {x: "3 POINT BASED\nPROB (O)", y: 769416.67, "color": "#000000"},
+                        {x: "PERT POINT\nBASED PROB (O)", y: 796083.33, "color": "#000000"}
+                        ]
+                    },
+                    {
+                        key: "Weakness Sum",
+                        color: "black",
+                        values: [
+                        {x: "EST. IN CURRENCY (W)", y: -330000, "color": "#D30000"},
+                        {x: "MIN PROB (W)", y: -200000, "color": "#D30000"},
+                        {x: "MAX PROB (W)", y: -292000, "color": "#D30000"},
+                        {x: "AVERAGE PROB (W)", y: -246000, "color": "#D30000"},
+                        {x: "REALISTIC PROB (W)", y: -249000, "color": "#D30000"},
+                        {x: "3 POINT BASED\nPROB (W)", y: -247000, "color": "#D30000"},
+                        {x: "PERT POINT\nBASED PROB (W)", y: -248000, "color": "#D30000"}
+                        ]
+                    },
+                    {
+                        key: "Threat Sum",
+                        color: "black",
+                        values: [
+                        {x: "EST. IN CURRENCY (T)", y: -410000, "color": "#D30000"},
+                        {x: "MIN PROB (T)", y: -68500, "color": "#D30000"},
+                        {x: "MAX PROB (T)", y: -221500, "color": "#D30000"},
+                        {x: "AVERAGE PROB (T)", y: -145000, "color": "#D30000"},
+                        {x: "REALISTIC PROB (T)", y: -161000, "color": "#D30000"},
+                        {x: "3 POINT BASED\nPROB (T)", y: -150333.33, "color": "#D30000"},
+                        {x: "PERT POINT\nBASED PROB (T)", y: -155666.67, "color": "#D30000"}
+                        ]
+                    }
+                ];
+
+                var chart = nv.models.discreteBarChart()
+                    .x(function(d) { return d.x; })
+                    .y(function(d) { return d.y; })
+                    .margin({bottom: 100})
+                    .rotateLabels(-45)
+                    .margin({left: 110, right: 100, bottom: 200, top: 50})
+                    .showValues(true);
+                
+            
+                chart.tooltip.contentGenerator(function (d) {
+                    var tooltipHTML = "<p><strong>" + d.data.x + "</strong></p>";
+                    
+                    data.forEach(function(item) {
+                        var value = item.values.find(function(value) { return value.x === d.data.x });
+                        if (value) {
+                            tooltipHTML += "<p>" + item.key + " : " + value.y + "</p>";
+                        }
+                    });
+
+                    return tooltipHTML;
+                });
+
+
+                d3.select("#posneg-svg")
+                    .datum(data)
+                    .transition()
+                    .duration(500)
+                    .call(chart);
+
+                nv.utils.windowResize(chart.update);
+
+                return chart;
+            });
+        </script>
+    </div>
+
+</body>
+</html>
