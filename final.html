@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Simple Graph using nvd3.js</title>
+    <link rel="stylesheet" href="style.css" type="text/css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.6/nv.d3.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.6/nv.d3.min.js"></script>
+</head>
+<body>
+    <div id="graph1">
+
+        <h1 style = "text-align: center;">Final SWOT Analysis : Using NVD3.js</h1>
+        <h2 style = "text-align: center;">Summation Positive, Negative, Differential</h2>
+        <svg id="posneg-svg" style="height:700px; width: 2300px"></svg>
+        <script>
+            nv.addGraph(function() {
+                var data = [
+                    {
+                        key: "Summation Positive",
+                        values: [
+                        {x: "EST. IN CURRENCY (S+O)", y: 1895000, "color": "#000000"},
+                        {x: "MIN PROB (S+O)", y: 888000, "color": "#000000"},
+                        {x: "MAX PROB (S+O)", y: 1620000, "color": "#000000"},
+                        {x: "AVERAGE PROB (S+O)", y: 1254000, "color": "#000000"},
+                        {x: "REALISTIC PROB (S+O)", y: 1350250, "color": "#000000"},
+                        {x: "3 POINT BASED\nPROB (S+O)", y: 1286083.34, "color": "#000000"},
+                        {x: "PERT POINT\nBASED PROB (S+O)", y: 1318166.66, "color": "#000000"}
+                        ]
+                    },
+                    {
+                        key: "Summation Negative",
+                        color: "red",
+                        values: [
+                        {x: "EST. IN CURRENCY (W+T)", y: -740000, "color": "#D30000"},
+                        {x: "MIN PROB (O)", y: -268500, "color": "#D30000"},
+                        {x: "MAX PROB (O)", y: -513500, "color": "#D30000"},
+                        {x: "AVERAGE PROB (O)", y: -391000, "color": "#D30000"},
+                        {x: "REALISTIC PROB (O)", y: -410000, "color": "#D30000"},
+                        {x: "3 POINT BASED\nPROB (O)", y: -397333.33, "color": "#D30000"},
+                        {x: "PERT POINT\nBASED PROB (O)", y: -403666.67, "color": "#D30000"}
+                        ]
+                    },
+                    {
+                        key: "Differential Positive-Negative",
+                        color: "black",
+                        values: [
+                        {x: "EST. IN CURRENCY (Pos - Neg)", y: 2635000, "color": "#3944BC"},
+                        {x: "MIN PROB (Pos - Neg)", y: 1156500, "color": "#3944BC"},
+                        {x: "MAX PROB (Pos - Neg)", y: 2133500, "color": "#3944BC"},
+                        {x: "AVERAGE PROB (Pos - Neg)", y: 1645000, "color": "#3944BC"},
+                        {x: "REALISTIC PROB (Pos - Neg)", y: 1760250, "color": "#3944BC"},
+                        {x: "3 POINT BASED\nPROB (Pos - Neg)", y: 1683416.67, "color": "#3944BC"},
+                        {x: "PERT POINT\nBASED PROB (Pos - Neg)", y: 1721833.33, "color": "#3944BC"}
+                        ]
+                    }
+                ];
+
+                var chart = nv.models.discreteBarChart()
+                    .x(function(d) { return d.x; })
+                    .y(function(d) { return d.y; })
+                    .margin({bottom: 100})
+                    .rotateLabels(-45)
+                    .margin({left: 110, right: 100, bottom: 200, top: 50})
+                    .showValues(true);
+                
+            
+                chart.tooltip.contentGenerator(function (d) {
+                    var tooltipHTML = "<p><strong>" + d.data.x + "</strong></p>";
+                    
+                    data.forEach(function(item) {
+                        var value = item.values.find(function(value) { return value.x === d.data.x });
+                        if (value) {
+                            tooltipHTML += "<p>" + item.key + " : " + value.y + "</p>";
+                        }
+                    });
+
+                    return tooltipHTML;
+                });
+
+                chart.yAxis
+                    .axisLabel("Value")
+                    .axisLabelDistance(30);
+
+                d3.select("#posneg-svg")
+                    .datum(data)
+                    .transition()
+                    .duration(500)
+                    .call(chart);
+
+                nv.utils.windowResize(chart.update);
+
+                return chart;
+            });
+        </script>
+    </div>
+
+</body>
+</html>

@@ -91,6 +91,10 @@
                     return tooltipHTML;
                 });
 
+                chart.yAxis
+                    .axisLabel("Value")
+                    .axisLabelDistance(30);
+
 
                 d3.select("#posneg-svg")
                     .datum(data)
