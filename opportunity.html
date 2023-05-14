@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Simple Graph using nvd3.js</title>
+    <link rel="stylesheet" href="style.css" type="text/css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.6/nv.d3.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.6/nv.d3.min.js"></script>
+</head>
+<body>
+    <h1 style = "text-align: center;">Opportunity - 7 Categories : Using NVD3.js</h1>
+    <svg style="height:600px; width: 1500px"></svg>
+    <script>
+        nv.addGraph(function() {
+            var data = [
+                {
+                    key: "Local Tax Incentive",
+                    values: [
+                    {x: "EST. VALUE\nIN CURRENCY", y: 800000},
+                    {x: "MIN PROB\nADJUSTED VALUE", y: 480000},
+                    {x: "MAX PROB ADJUSTED VALUE", y: 800000},
+                    {x: "AVERAGE PROB ADJUSTED VALUE", y: 640000},
+                    {x: "REALISTIC PROB ADJUSTED VALUE", y: 720000},
+                    {x: "3 POINT BASED\nPROB ADJUSTED\nVALUE", y: 666666.666667},
+                    {x: "PERT POINT\nBASED PROB\nADJUSTED VALUE", y: 693333.333333}
+                    ]
+                },
+                {
+                    key: "Export Zone Location",
+                    values: [
+                    {x: "EST. VALUE\nIN CURRENCY", y: 60000},
+                    {x: "MIN PROB\nADJUSTED VALUE", y: 27000},
+                    {x: "MAX PROB ADJUSTED VALUE", y: 51000},
+                    {x: "AVERAGE PROB ADJUSTED VALUE", y: 39000},
+                    {x: "REALISTIC PROB ADJUSTED VALUE", y: 39000},
+                    {x: "3 POINT BASED\nPROB ADJUSTED\nVALUE", y: 39000.000000},
+                    {x: "PERT POINT\nBASED PROB\nADJUSTED VALUE", y: 39000.000000}
+                    ]
+                },
+                {
+                    key: "Easy Access to Ports",
+                    values: [
+                    {x: "EST. VALUE\nIN CURRENCY", y: 85000},
+                    {x: "MIN PROB\nADJUSTED VALUE", y: 51000},
+                    {x: "MAX PROB ADJUSTED VALUE", y: 76500},
+                    {x: "AVERAGE PROB ADJUSTED VALUE", y: 63750},
+                    {x: "REALISTIC PROB ADJUSTED VALUE", y: 63750},
+                    {x: "3 POINT BASED\nPROB ADJUSTED\nVALUE", y: 63750.000000},
+                    {x: "PERT POINT\nBASED PROB\nADJUSTED VALUE", y: 63750.000000}
+                    ]
+                }
+            ];
+
+            var chart = nv.models.discreteBarChart()
+                .x(function(d) { return d.x; })
+                .y(function(d) { return d.y; })
+                .margin({bottom: 100})
+                .rotateLabels(-15)
+                .margin({left: 100, right: 100, bottom: 100, top: 50})
+                .showValues(true);
+            
+          
+            chart.tooltip.contentGenerator(function (d) {
+                var tooltipHTML = "<p><strong>" + d.data.x + "</strong></p>";
+                
+                data.forEach(function(item) {
+                    var value = item.values.find(function(value) { return value.x === d.data.x });
+                    if (value) {
+                        tooltipHTML += "<p>" + item.key + " - " + value.y + "</p>";
+                    }
+                });
+
+                return tooltipHTML;
+            });
+
+            d3.select("svg")
+                .datum(data)
+                .transition()
+                .duration(500)
+                .call(chart);
+
+            nv.utils.windowResize(chart.update);
+
+            return chart;
+        });
+    </script>
+</body>
+</html>

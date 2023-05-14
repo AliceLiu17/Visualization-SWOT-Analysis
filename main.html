@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title> CSC474: SWOT Analysis </title>
+        <link rel="stylesheet" href="style.css" type="text/css" />
+    </head>
+
+    <body>
+        <h1 style = "text-align: center;"> CSC474: SWOT ANALYSIS </h1>
+        <h3 style = "text-align: center;"> Alice Liu, SP23 </h3>
+        <h2 style = "text-align: center"> MAIN PAGE </h2>
+
+        <div class="container">
+            <!-- strength -->
+            <a href = "strength.html">
+                <div class="box box-top-left">
+                    <span class="label">STRENGTH</span>
+                </div>
+            </a>
+
+            <!-- weakness -->
+            <a href = "weakness.html">
+                <div class="box box-top-right">
+                    <span class="label">WEAKNESS</span>
+                </div>
+            </a>
+
+            <!-- opportunity -->
+            <a href = "opportunity.html">
+                <div class="box box-bottom-left">
+                    <span class="label">OPPORTUNITY</span>
+                </div>
+            </a>
+
+            <!-- threat -->
+            <a href = "threat.html">
+                <div class="box box-bottom-right">
+                    <span class="label">THREAT</span>
+                </div>
+            </a>
+
+        </div>
+
+
+        <script>
+            var boxes = document.querySelectorAll('.box');
+            boxes.forEach(function(box) {
+			box.addEventListener('click', function() {
+				console.log('Box clicked!');
+			    });
+            });
+        </script>
+    </body>
+</html>
+
+
