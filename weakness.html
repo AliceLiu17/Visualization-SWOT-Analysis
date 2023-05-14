@@ -9,82 +9,148 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.6/nv.d3.min.js"></script>
 </head>
 <body>
-    <h1 style = "text-align: center;">Weakness - 7 Categories : Using NVD3.js</h1>
-    <svg style="height:600px; width: 1500px"></svg>
-    <script>
-        nv.addGraph(function() {
-            var data = [
-                {
-                    key: "Real Estate Cost",
-                    values: [
-                    {x: "EST. VALUE\nIN CURRENCY", y: -200000},
-                    {x: "MIN PROB\nADJUSTED VALUE", y: -120000},
-                    {x: "MAX PROB ADJUSTED VALUE", y: -170000},
-                    {x: "AVERAGE PROB ADJUSTED VALUE", y: -145000},
-                    {x: "REALISTIC PROB ADJUSTED VALUE", y: -140000},
-                    {x: "3 POINT BASED\nPROB ADJUSTED\nVALUE", y: -143333.333333},
-                    {x: "PERT POINT\nBASED PROB\nADJUSTED VALUE", y: -141666.666667}
-                    ]
-                },
-                {
-                    key: "Tech Platform Changes",
-                    values: [
-                    {x: "EST. VALUE\nIN CURRENCY", y: -50000},
-                    {x: "MIN PROB\nADJUSTED VALUE", y: -40000},
-                    {x: "MAX PROB ADJUSTED VALUE", y: -50000},
-                    {x: "AVERAGE PROB ADJUSTED VALUE", y: -45000},
-                    {x: "REALISTIC PROB ADJUSTED VALUE", y: -45000},
-                    {x: "3 POINT BASED\nPROB ADJUSTED\nVALUE", y: -45000.000000},
-                    {x: "PERT POINT\nBASED PROB\nADJUSTED VALUE", y: -45000.000000}
-                    ]
-                },
-                {
-                    key: "Access to Ports",
-                    values: [
-                    {x: "EST. VALUE\nIN CURRENCY", y: -80000},
-                    {x: "MIN PROB\nADJUSTED VALUE", y: -40000},
-                    {x: "MAX PROB ADJUSTED VALUE", y: -72000},
-                    {x: "AVERAGE PROB ADJUSTED VALUE", y: -56000},
-                    {x: "REALISTIC PROB ADJUSTED VALUE", y: -64000},
-                    {x: "3 POINT BASED\nPROB ADJUSTED\nVALUE", y: -58666.666667},
-                    {x: "PERT POINT\nBASED PROB\nADJUSTED VALUE", y: -61333.333333}
-                    ]
-                }
-            ];
-
-            var chart = nv.models.discreteBarChart()
-                .x(function(d) { return d.x; })
-                .y(function(d) { return d.y; })
-                .margin({bottom: 100})
-                .rotateLabels(-15)
-                .margin({left: 100, right: 100, bottom: 100, top: 50})
-                .showValues(true);
-            
-          
-            chart.tooltip.contentGenerator(function (d) {
-                var tooltipHTML = "<p><strong>" + d.data.x + "</strong></p>";
-                
-                data.forEach(function(item) {
-                    var value = item.values.find(function(value) { return value.x === d.data.x });
-                    if (value) {
-                        tooltipHTML += "<p>" + item.key + " - " + value.y + "</p>";
+    <div id="graph1">
+        <h1 style = "text-align: center;">Weakness - 7 Categories : Using NVD3.js</h1>
+        <svg id = "graph1-svg" style="height:600px; width: 1400px"></svg>
+        <script>
+            nv.addGraph(function() {
+                var data = [
+                    {
+                        key: "Real Estate Cost",
+                        values: [
+                        {x: "EST. VALUE\nIN CURRENCY", y: -200000},
+                        {x: "MIN PROB\nADJUSTED VALUE", y: -120000},
+                        {x: "MAX PROB ADJUSTED VALUE", y: -170000},
+                        {x: "AVERAGE PROB ADJUSTED VALUE", y: -145000},
+                        {x: "REALISTIC PROB ADJUSTED VALUE", y: -140000},
+                        {x: "3 POINT BASED\nPROB ADJUSTED\nVALUE", y: -143333.333333},
+                        {x: "PERT POINT\nBASED PROB\nADJUSTED VALUE", y: -141666.666667}
+                        ]
+                    },
+                    {
+                        key: "Tech Platform Changes",
+                        values: [
+                        {x: "EST. VALUE\nIN CURRENCY", y: -50000},
+                        {x: "MIN PROB\nADJUSTED VALUE", y: -40000},
+                        {x: "MAX PROB ADJUSTED VALUE", y: -50000},
+                        {x: "AVERAGE PROB ADJUSTED VALUE", y: -45000},
+                        {x: "REALISTIC PROB ADJUSTED VALUE", y: -45000},
+                        {x: "3 POINT BASED\nPROB ADJUSTED\nVALUE", y: -45000.000000},
+                        {x: "PERT POINT\nBASED PROB\nADJUSTED VALUE", y: -45000.000000}
+                        ]
+                    },
+                    {
+                        key: "Access to Ports",
+                        values: [
+                        {x: "EST. VALUE\nIN CURRENCY", y: -80000},
+                        {x: "MIN PROB\nADJUSTED VALUE", y: -40000},
+                        {x: "MAX PROB ADJUSTED VALUE", y: -72000},
+                        {x: "AVERAGE PROB ADJUSTED VALUE", y: -56000},
+                        {x: "REALISTIC PROB ADJUSTED VALUE", y: -64000},
+                        {x: "3 POINT BASED\nPROB ADJUSTED\nVALUE", y: -58666.666667},
+                        {x: "PERT POINT\nBASED PROB\nADJUSTED VALUE", y: -61333.333333}
+                        ]
                     }
+                ];
+
+                var chart = nv.models.discreteBarChart()
+                    .x(function(d) { return d.x; })
+                    .y(function(d) { return d.y; })
+                    .margin({bottom: 100})
+                    .rotateLabels(-15)
+                    .margin({left: 110, right: 100, bottom: 100, top: 50})
+                    .showValues(true);
+                
+            
+                chart.tooltip.contentGenerator(function (d) {
+                    var tooltipHTML = "<p><strong>" + d.data.x + "</strong></p>";
+                    
+                    data.forEach(function(item) {
+                        var value = item.values.find(function(value) { return value.x === d.data.x });
+                        if (value) {
+                            tooltipHTML += "<p>" + item.key + " : " + value.y + "</p>";
+                        }
+                    });
+
+                    return tooltipHTML;
                 });
 
-                return tooltipHTML;
+                chart.yAxis
+                    .axisLabel("Value")
+                    .axisLabelDistance(30);
+
+
+                d3.select("#graph1-svg")
+                    .datum(data)
+                    .transition()
+                    .duration(500)
+                    .call(chart);
+
+                nv.utils.windowResize(chart.update);
+
+                return chart;
             });
+        </script>
+    </div>
 
-            d3.select("svg")
-                .datum(data)
-                .transition()
-                .duration(500)
-                .call(chart);
+    <div id="graph2">
+        <h1 style = "text-align: center;">Weakness - Summation : Using NVD3.js</h1>
+        <svg id = "graph2-svg" style="height:600px; width: 1500px"></svg>
+        <script>
+            nv.addGraph(function() {
+                var data = [
+                    {
+                        key: "Sum",
+                        values: [
+                        {x: "MIN PROB\nADJUSTED VALUE", y: -200000},
+                        {x: "MAX PROB ADJUSTED VALUE", y: -292000},
+                        {x: "AVERAGE PROB ADJUSTED VALUE", y: -246000},
+                        {x: "REALISTIC PROB ADJUSTED VALUE", y: -249000},
+                        {x: "3 POINT BASED\nPROB ADJUSTED\nVALUE", y: -247000},
+                        {x: "PERT POINT\nBASED PROB\nADJUSTED VALUE", y: -248000}
+                        ]
+                    }
+                ];
 
-            nv.utils.windowResize(chart.update);
+                var chart = nv.models.discreteBarChart()
+                    .x(function(d) { return d.x; })
+                    .y(function(d) { return d.y; })
+                    .margin({bottom: 100})
+                    .rotateLabels(-15)
+                    .margin({left: 110, right: 100, bottom: 100, top: 50})
+                    .showValues(true);
+                
+            
+                chart.tooltip.contentGenerator(function (d) {
+                    var tooltipHTML = "<p><strong>" + d.data.x + "</strong></p>";
+                    
+                    data.forEach(function(item) {
+                        var value = item.values.find(function(value) { return value.x === d.data.x });
+                        if (value) {
+                            tooltipHTML += "<p>" + item.key + " : " + value.y + "</p>";
+                        }
+                    });
 
-            return chart;
-        });
-    </script>
+                    return tooltipHTML;
+                });
+
+                chart.yAxis
+                    .axisLabel("Value")
+                    .axisLabelDistance(30);
+
+
+                d3.select("#graph2-svg")
+                    .datum(data)
+                    .transition()
+                    .duration(500)
+                    .call(chart);
+
+                nv.utils.windowResize(chart.update);
+
+                return chart;
+            });
+        </script>
+    </div>
 
 </body>
 </html>
