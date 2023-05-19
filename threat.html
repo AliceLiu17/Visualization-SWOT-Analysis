@@ -58,7 +58,7 @@
                     .y(function(d) { return d.y; })
                     .margin({bottom: 100})
                     .rotateLabels(-15)
-                    .margin({left: 100, right: 100, bottom: 100, top: 50})
+                    .margin({left: 110, right: 100, bottom: 100, top: 50})
                     .showValues(true);
                 
             
@@ -74,6 +74,10 @@
 
                     return tooltipHTML;
                 });
+
+                chart.yAxis
+                    .axisLabel("Value")
+                    .axisLabelDistance(30);
 
                 d3.select("svg")
                     .datum(data)
